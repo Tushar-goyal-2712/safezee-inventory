@@ -1,14 +1,8 @@
-CSRF_TRUSTED_ORIGINS = [
-    "https://inventory.safezeefire.com",
-]
+#!/usr/bin/env bash
+set -o errexit
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+pip install -r requirements.txt
 
-if not DEBUG:
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SECURE_SSL_REDIRECT = True
+python manage.py collectstatic --noinput
 
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
+python manage.py migrate
