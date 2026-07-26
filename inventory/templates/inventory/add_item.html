@@ -1,0 +1,54 @@
+{% load static %}
+<!-- Add Item Modal -->
+<div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content sz-modal">
+            <form id="addItemForm" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">
+                        <i class="bi bi-plus-circle me-2"></i>Add Item
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="addItemError" class="alert alert-danger d-none" role="alert"></div>
+
+                    <div class="mb-3">
+                        <label for="itemName" class="form-label">Item name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="itemName"
+                            name="name"
+                            placeholder="e.g. ABC 4 KG"
+                            required
+                        >
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="itemQuantity" class="form-label">Initial quantity (Godown)</label>
+                        <input
+                            type="number"
+                            class="form-control"
+                            id="itemQuantity"
+                            name="quantity"
+                            min="0"
+                            value="0"
+                            required
+                        >
+                        <div class="form-text">
+                            This quantity is added to Godown. All other locations start at 0.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn sz-btn-primary">
+                        <span class="btn-label">Add Item</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

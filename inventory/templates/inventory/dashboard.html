@@ -1,0 +1,151 @@
+{% extends "inventory/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard — SAFEZEE Inventory{% endblock %}
+
+{% block content %}
+
+    <!-- Toolbar -->
+    <div class="sz-toolbar mb-3">
+        <div class="row g-2 align-items-center">
+            <div class="col-12 col-md">
+                <div class="input-group sz-search-group">
+                    <span class="input-group-text bg-white border-end-0">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        class="form-control border-start-0"
+                        placeholder="Search extinguisher (e.g. ABC 4 KG)..."
+                        autocomplete="off"
+                    >
+                </div>
+            </div>
+            <div class="col-12 col-md-auto d-flex gap-2">
+                <button
+                    type="button"
+                    class="btn sz-btn-outline flex-fill"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addLocationModal"
+                >
+                    <i class="bi bi-geo-alt me-1"></i> Add Location
+                </button>
+                <button
+                    type="button"
+                    class="btn sz-btn-primary flex-fill"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addItemModal"
+                >
+                    <i class="bi bi-plus-lg me-1"></i> Add Item
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="searchEmptyState" class="text-center text-muted py-5 d-none">
+        <i class="bi bi-search fs-1 d-block mb-2"></i>
+        No extinguisher matches your search.
+    </div>
+
+    <!-- Location cards -->
+    <div class="row g-3" id="locationBoard">
+        {% for entry in board %}
+        <div class="col-12 col-md-6 col-xl-4 sz-location-col">
+            <div
+                class="card sz-card h-100 {% if entry.location.is_godown %}sz-card-godown{% endif %}"
+                data-location-id="{{ entry.location.id }}"
+                data-is-godown="{{ entry.location.is_godown|yesno:'true,false' }}"
+                data-location-name="{{ entry.location.name }}"
+            >
+                <div class="card-header sz-card-header d-flex align-items-center justify-content-between">
+                    <span class="d-flex align-items-center gap-2 sz-card-title">
+                        <i class="bi {{ entry.icon }}"></i>
+                        {{ entry.location.name }}
+                        {% if entry.location.is_godown %}
+                        <span class="badge sz-badge-master ms-1">Master</span>
+                        {% endif %}
+                    </span>
+                    <div class="sz-card-actions">
+                        <button type="button" class="btn btn-sm sz-btn-edit js-edit-btn">
+                            <i class="bi bi-pencil-fill"></i> Edit
+                        </button>
+                        <div class="sz-edit-actions d-none">
+                            <button type="button" class="btn btn-sm sz-btn-save js-save-btn">
+                                <i class="bi bi-check-lg"></i> Save
+                            </button>
+                            <button type="button" class="btn btn-sm sz-btn-cancel js-cancel-btn">
+                                <i class="bi bi-x-lg"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body sz-card-body p-0">
+                    {% if entry.rows %}
+                    <ul class="list-group list-group-flush sz-item-list">
+                        {% for row in entry.rows %}
+                        <li
+                            class="list-group-item sz-item-row d-flex align-items-center justify-content-between"
+                            data-item-id="{{ row.item.id }}"
+                            data-item-name="{{ row.item.name|lower }}"
+                            data-original-quantity="{{ row.quantity }}"
+                        >
+                            <div class="d-flex align-items-center gap-2 sz-item-name">
+                                <button
+                                    type="button"
+                                    class="btn btn-sm sz-btn-delete-item js-delete-item"
+                                    title="Delete item"
+                                    data-item-id="{{ row.item.id }}"
+                                    data-item-name="{{ row.item.name }}"
+                                >
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                                <span>{{ row.item.name }}</span>
+                            </div>
+
+                            <div class="sz-qty-display fw-semibold">{{ row.quantity }}</div>
+
+                            <div class="sz-qty-editor d-none align-items-center gap-2">
+                                <button type="button" class="btn btn-sm sz-stepper js-qty-minus">
+                                    <i class="bi bi-dash-lg"></i>
+                                </button>
+                                <span class="sz-qty-value">{{ row.quantity }}</span>
+                                <button type="button" class="btn btn-sm sz-stepper js-qty-plus">
+                                    <i class="bi bi-plus-lg"></i>
+                                </button>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <div class="text-center text-muted py-4">No items yet.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-secondary text-center">
+                No locations yet. Add your first location to get started.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+{% block extra_body %}
+    {% include "inventory/add_item.html" %}
+    {% include "inventory/add_location.html" %}
+
+    <script>
+        window.SZ_URLS = {
+            addItem: "{% url 'inventory:add_item' %}",
+            addLocation: "{% url 'inventory:add_location' %}",
+            saveInventory: "{% url 'inventory:save_inventory' %}",
+            deleteItem: "{% url 'inventory:delete_item' item_id=0 %}".replace("0", ""),
+        };
+    </script>
+    <script src="{% static 'js/inventory.js' %}"></script>
+{% endblock %}

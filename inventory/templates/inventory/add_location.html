@@ -1,0 +1,41 @@
+{% load static %}
+<!-- Add Location Modal -->
+<div class="modal fade" id="addLocationModal" tabindex="-1" aria-labelledby="addLocationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content sz-modal">
+            <form id="addLocationForm" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addLocationModalLabel">
+                        <i class="bi bi-geo-alt me-2"></i>Add Location
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="addLocationError" class="alert alert-danger d-none" role="alert"></div>
+
+                    <div class="mb-2">
+                        <label for="locationName" class="form-label">Location name</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="locationName"
+                            name="name"
+                            placeholder="e.g. Warehouse"
+                            required
+                        >
+                        <div class="form-text">
+                            All existing items will be added to this location at quantity 0.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn sz-btn-primary">
+                        <span class="btn-label">Add Location</span>
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

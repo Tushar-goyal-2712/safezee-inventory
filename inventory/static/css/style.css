@@ -1,0 +1,308 @@
+:root {
+    --sz-red: #c62828;
+    --sz-red-dark: #8e1c1c;
+    --sz-red-light: #ffebee;
+    --sz-grey-900: #212529;
+    --sz-grey-700: #495057;
+    --sz-grey-500: #868e96;
+    --sz-grey-200: #e9ecef;
+    --sz-grey-100: #f4f5f6;
+    --sz-white: #ffffff;
+    --sz-radius: 14px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--sz-grey-100);
+    color: var(--sz-grey-900);
+    font-family: "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ---------------- Navbar ---------------- */
+.sz-navbar {
+    background: linear-gradient(135deg, var(--sz-red) 0%, var(--sz-red-dark) 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------------- Toolbar ---------------- */
+.sz-toolbar {
+    background: var(--sz-white);
+    border-radius: var(--sz-radius);
+    padding: 14px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.sz-search-group .form-control,
+.sz-search-group .input-group-text {
+    border-color: var(--sz-grey-200);
+}
+
+.sz-search-group .form-control:focus {
+    box-shadow: none;
+    border-color: var(--sz-red);
+}
+
+/* ---------------- Buttons ---------------- */
+.sz-btn-primary {
+    background-color: var(--sz-red);
+    border-color: var(--sz-red);
+    color: var(--sz-white);
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 8px 16px;
+}
+
+.sz-btn-primary:hover,
+.sz-btn-primary:focus {
+    background-color: var(--sz-red-dark);
+    border-color: var(--sz-red-dark);
+    color: var(--sz-white);
+}
+
+.sz-btn-outline {
+    background-color: var(--sz-white);
+    border: 1.5px solid var(--sz-grey-200);
+    color: var(--sz-grey-700);
+    border-radius: 10px;
+    font-weight: 600;
+    padding: 8px 16px;
+}
+
+.sz-btn-outline:hover {
+    border-color: var(--sz-red);
+    color: var(--sz-red);
+}
+
+.sz-btn-edit {
+    background-color: var(--sz-grey-100);
+    border: 1px solid var(--sz-grey-200);
+    color: var(--sz-grey-700);
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.sz-btn-edit:hover {
+    border-color: var(--sz-red);
+    color: var(--sz-red);
+}
+
+.sz-btn-save {
+    background-color: #2e7d32;
+    border: 1px solid #2e7d32;
+    color: var(--sz-white);
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.sz-btn-save:hover {
+    background-color: #1b5e20;
+    color: var(--sz-white);
+}
+
+.sz-btn-cancel {
+    background-color: var(--sz-white);
+    border: 1px solid var(--sz-grey-200);
+    color: var(--sz-grey-700);
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.sz-btn-cancel:hover {
+    border-color: var(--sz-grey-500);
+}
+
+.sz-edit-actions {
+    display: flex;
+    gap: 6px;
+}
+
+.sz-btn-delete-item {
+    background: transparent;
+    border: none;
+    color: var(--sz-grey-500);
+    padding: 2px 6px;
+}
+
+.sz-btn-delete-item:hover {
+    color: var(--sz-red);
+}
+
+.sz-stepper {
+    background-color: var(--sz-white);
+    border: 1.5px solid var(--sz-grey-200);
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sz-red);
+    font-weight: 700;
+    padding: 0;
+}
+
+.sz-stepper:hover {
+    background-color: var(--sz-red-light);
+    border-color: var(--sz-red);
+}
+
+.sz-stepper:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* ---------------- Cards ---------------- */
+.sz-card {
+    border: none;
+    border-radius: var(--sz-radius);
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+    transition: box-shadow 0.15s ease;
+}
+
+.sz-card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.sz-card-godown {
+    border: 1.5px solid var(--sz-red);
+}
+
+.sz-card-header {
+    background-color: var(--sz-white);
+    border-bottom: 1px solid var(--sz-grey-200);
+    padding: 14px 16px;
+}
+
+.sz-card-title {
+    font-weight: 700;
+    font-size: 1.02rem;
+    color: var(--sz-grey-900);
+}
+
+.sz-card-title i {
+    color: var(--sz-red);
+    font-size: 1.1rem;
+}
+
+.sz-badge-master {
+    background-color: var(--sz-red-light);
+    color: var(--sz-red-dark);
+    font-weight: 600;
+    font-size: 0.65rem;
+    letter-spacing: 0.03em;
+}
+
+/* ---------------- Item rows ---------------- */
+.sz-item-list {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.sz-item-row {
+    padding: 10px 16px;
+    border-color: var(--sz-grey-200) !important;
+    transition: background-color 0.15s ease;
+}
+
+.sz-item-row.sz-row-editing {
+    background-color: var(--sz-red-light);
+}
+
+.sz-item-row.sz-row-hidden {
+    display: none !important;
+}
+
+.sz-item-name span {
+    font-size: 0.92rem;
+    color: var(--sz-grey-900);
+}
+
+.sz-qty-display {
+    min-width: 40px;
+    text-align: right;
+    color: var(--sz-grey-900);
+}
+
+.sz-qty-editor {
+    display: flex;
+}
+
+.sz-qty-value {
+    min-width: 28px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.sz-qty-value.sz-qty-dirty {
+    color: var(--sz-red);
+}
+
+/* ---------------- Modals ---------------- */
+.sz-modal {
+    border-radius: var(--sz-radius);
+    border: none;
+}
+
+.sz-modal .modal-header {
+    border-bottom: 1px solid var(--sz-grey-200);
+}
+
+.sz-modal .modal-footer {
+    border-top: 1px solid var(--sz-grey-200);
+}
+
+/* ---------------- Toast ---------------- */
+.sz-toast {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ---------------- Mobile tweaks ---------------- */
+@media (max-width: 767.98px) {
+    .sz-toolbar {
+        padding: 10px;
+    }
+    .sz-card-header {
+        padding: 12px;
+    }
+    .sz-item-row {
+        padding: 10px 12px;
+    }
+}
+
+/* ---------------- Auth pages ---------------- */
+.sz-btn-logout {
+    background-color: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: var(--sz-white);
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.sz-btn-logout:hover {
+    background-color: rgba(255, 255, 255, 0.22);
+    color: var(--sz-white);
+}
+
+.sz-auth-wrap {
+    min-height: calc(100vh - 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.sz-auth-card {
+    background: var(--sz-white);
+    border-radius: var(--sz-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    padding: 32px 28px;
+    width: 100%;
+    max-width: 420px;
+}
