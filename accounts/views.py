@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.http import require_GET, require_POST
 from webauthn.helpers import parse_registration_credential_json
+from webauthn.helpers import parse_authentication_credential_json
 
 import webauthn
 from webauthn.helpers.structs import (
@@ -178,7 +179,7 @@ def authentication_verify(request):
     try:
         body = json.loads(request.body.decode("utf-8"))
         credential_json = json.dumps(body.get("credential"))
-        credential = AuthenticationCredential.parse_raw(credential_json)
+        credential = parse_authentication_credential_json(credential_json)
 
         stored = PasskeyCredential.objects.get(
             credential_id=bytes_to_b64url(credential.raw_id)
