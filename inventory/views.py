@@ -1,7 +1,7 @@
 import json
 
 from django.db import transaction
-from django.db.models import ProtectedError
+from django.db.models import ProtectedError, Sum
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -62,10 +62,18 @@ def dashboard(request):
             "icon": _icon_for_location(loc.name),
         })
 
+    total_inventory = (
+        Inventory.objects
+        .values("item__name")
+        .annotate(total=Sum("quantity"))
+        .order_by("item__name")
+    )
+    
     context = {
         "board": board,
         "item_count": Item.objects.count(),
         "location_count": Location.objects.count(),
+        "total_inventory": total_inventory,
     }
     return render(request, "inventory/dashboard.html", context)
 

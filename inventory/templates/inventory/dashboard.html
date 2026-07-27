@@ -6,6 +6,28 @@
 {% block content %}
 
     <!-- Toolbar -->
+    <!-- Total Inventory -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-danger text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-box-seam me-2"></i>
+                Total Inventory
+            </h5>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                {% for item in total_inventory %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-2">
+                    <div class="border rounded p-2 d-flex justify-content-between align-items-center">
+                        <span>{{ item.item__name }}</span>
+                        <span class="fw-bold">{{ item.total }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="sz-toolbar mb-3">
         <div class="row g-2 align-items-center">
             <div class="col-12 col-md">
