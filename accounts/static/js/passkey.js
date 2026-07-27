@@ -156,7 +156,12 @@
 
             window.location.href = data.redirect || "/";
         } catch (err) {
-            showError("registerError", err.message || "Registration failed.");
+            console.error(err);
+
+            showError(
+                "registerError",
+                `${err.name}: ${err.message}`
+            );
         } finally {
             setLoading(submitBtn, false);
         }
